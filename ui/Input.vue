@@ -3,18 +3,23 @@
     :placeholder="placeholder"
     :disabled="disabled"
     v-bind="$attrs"
+    :input-class="
+      `rounded-lg shadow-none focus:ring-[#1B63F5] ${inputClass}`.trim()
+    "
+    icon="i-lucide-search"
   />
 </template>
 
 <script setup lang="ts">
-interface Props {
-  placeholder?: string
-  disabled?: boolean
-}
+type Props = {
+  placeholder?: string;
+  disabled?: boolean;
+  inputClass?: string;
+};
 
-withDefaults(defineProps<Props>(), {
-  placeholder: '',
-  disabled: false,
-})
+const {
+  placeholder = "",
+  disabled = false,
+  inputClass = "",
+} = defineProps<Props>();
 </script>
-

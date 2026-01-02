@@ -7,19 +7,18 @@
         <img :src="logoUrl" alt="Peekage" class="w-32 h-8" />
       </div>
 
-      <!-- Navigation Menu -->
       <nav class="space-y-2 ps-3 pe-3">
         <NuxtLink
           v-for="item in menuItems"
           :key="item.id"
           :to="item.to"
-          class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
+          class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors gap-3"
           :class="{
             'bg-[#1B63F5] font-semibold text-white hover:text-gray-700':
               isActive(item.to),
           }"
         >
-          <img :src="item.icon" :alt="item.label" class="w-5 h-5 me-3" />
+          <img :src="item.icon" :alt="item.label" class="w-5 h-5" />
           <span>{{ item.label }}</span>
         </NuxtLink>
       </nav>
@@ -53,13 +52,13 @@ const route = useRoute();
 const isActive = (to: string) => route.path === to;
 
 const menuItems: MenuItem[] = [
-  { id: "2", label: "Offers", to: "/offers", icon: offersIconUrl },
-  { id: "3", label: "Packs", to: "/", icon: packsIconUrl },
-  { id: "4", label: "Brands", to: "/#", icon: brandsIconUrl },
+  { id: "1", label: "Offers", to: "/offers", icon: offersIconUrl },
+  { id: "2", label: "Packs", to: "/packs", icon: packsIconUrl },
+  { id: "3", label: "Brands", to: "/brands", icon: brandsIconUrl },
   {
-    id: "5",
+    id: "4",
     label: "Companies",
-    to: "/#",
+    to: "/companies",
     icon: companiesIconUrl,
   },
 ];
