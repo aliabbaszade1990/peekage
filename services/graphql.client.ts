@@ -1,7 +1,4 @@
-export async function graphqlRequest<
-  TData,
-  TVariables extends Record<string, unknown>
->(
+export async function graphqlRequest<TData, TVariables extends object>(
   query: string,
   variables?: TVariables,
   options?: { headers?: Record<string, string> }

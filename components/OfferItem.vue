@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import type { CampaignStatus, Offer } from "~/types/offers";
+import type { CampaignStatus, Offer } from "~/types/Offers";
 
 interface Props {
   offer: Offer;

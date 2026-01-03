@@ -1,4 +1,5 @@
 export type CampaignStatus =
+  | "ALL"
   | "INVALID"
   | "DRAFT"
   | "ASSESSING"
@@ -23,7 +24,7 @@ export type Picture = {
   uri?: string | null;
 };
 
-export type TinyOffer = {
+export type Offer = {
   id: string;
   isRejected?: boolean | null;
   name: string;
@@ -31,6 +32,3 @@ export type TinyOffer = {
   rejectReason?: string | null;
   status?: CampaignStatus | null;
 };
-
-// Back-compat alias for existing UI code.
-export type Offer = TinyOffer;

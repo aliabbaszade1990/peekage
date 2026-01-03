@@ -6,67 +6,52 @@
         placeholder="Search offers by name or ID"
         input-class="h-12"
         @update:model-value="onSearchChange"
+        icon="i-lucide-search"
       />
-      <ChipList
-        :offers="mockOffers"
-        :statuses="['ALL', ...STATUSES]"
-        @change="onStatusChange"
-      />
-      <OffersList :offers="mockOffers" @change="onOfferChange" />
+      <ChipList :offers="offers" @change="onStatusChange" />
+      <OffersList :offers="offers" @change="onOfferChange" />
     </Card>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { CampaignStatus, Offer } from "~/types/offers";
+import type { CampaignStatus } from "~/types/Offers";
 
-const STATUSES: CampaignStatus[] = [
-  "INVALID",
-  "DRAFT",
-  "ASSESSING",
-  "VERIFIED",
-  "LIVE",
-  "PAUSE",
-  "FINISHED",
-  "TERMINATED",
-  "REJECTED",
-  "INPROGRESS",
-];
+const { listOffers } = useOffers();
+const searchQuery = ref<string>("");
+const selectedStatus = ref<CampaignStatus | "ALL">("ALL");
+const debouncedSearchQuery = ref<string>("");
 
-const mockOffers: Offer[] = Array.from({ length: 30 }, (_, i) => {
-  const n = i + 1;
-  const status = STATUSES[i % STATUSES.length];
-  const isRejected = status === "REJECTED";
+let searchTimeout: ReturnType<typeof setTimeout> | null = null;
 
-  return {
-    id: `OFF-${String(n).padStart(4, "0")}`,
-    name: `Offer ${String(n).padStart(2, "0")}`,
-    status,
-    isRejected,
-    rejectReason: isRejected
-      ? n % 2 === 0
-        ? "Low quality creatives"
-        : "Missing required info"
-      : null,
-    poster: {
-      id: `PIC-${String(n).padStart(4, "0")}`,
-      name: `Offer ${String(n).padStart(2, "0")} Poster`,
-      uri: `/mock/offers/${n}.png`,
-      imageKitUri: `https://picsum.photos/200/300`,
-      dimensions: {
-        width: 1080,
-        height: 1350,
-      },
-    },
-  };
-});
+const { data } = useAsyncData(
+  "offers",
+  () =>
+    listOffers({
+      name: debouncedSearchQuery.value || undefined,
+      status: selectedStatus.value === "ALL" ? undefined : selectedStatus.value,
+    }),
+  {
+    default: () => ({ offers: [], totalCount: 0 }),
+    watch: [selectedStatus, debouncedSearchQuery],
+    server: false,
+  }
+);
 
-const onStatusChange = (status: CampaignStatus | "ALL") => {
-  console.log(status);
+const offers = computed(() => data.value?.offers ?? []);
+
+const onStatusChange = (status: CampaignStatus) => {
+  selectedStatus.value = status;
 };
 
 const onSearchChange = (value: string) => {
-  console.log(value);
+  searchQuery.value = value;
+  if (searchTimeout) {
+    clearTimeout(searchTimeout);
+  }
+  searchTimeout = setTimeout(() => {
+    debouncedSearchQuery.value = value;
+  }, 300);
 };
 
 const onOfferChange = (id: string) => {

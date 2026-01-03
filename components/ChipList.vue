@@ -17,29 +17,40 @@
 </template>
 
 <script setup lang="ts">
-import type { CampaignStatus, Offer } from "~/types/offers";
+import type { CampaignStatus, Offer } from "~/types/Offers";
 
-type ChipListValue = CampaignStatus | "ALL";
+const statuses: CampaignStatus[] = [
+  "ALL",
+  "INVALID",
+  "DRAFT",
+  "ASSESSING",
+  "VERIFIED",
+  "LIVE",
+  "PAUSE",
+  "FINISHED",
+  "TERMINATED",
+  "REJECTED",
+  "INPROGRESS",
+];
 
 type Props = {
   offers: Offer[];
-  statuses: ChipListValue[];
 };
 
 const props = defineProps<Props>();
 
 const emit = defineEmits<{
-  (e: "change", value: ChipListValue): void;
+  (e: "change", value: CampaignStatus): void;
 }>();
 
-const selected = ref<ChipListValue>("ALL");
+const selected = ref<CampaignStatus>("ALL");
 
-const statusCounts = (status: ChipListValue) => {
+const statusCounts = (status: CampaignStatus) => {
   if (status === "ALL") return props.offers.length;
   return props.offers.filter((offer) => offer.status === status).length;
 };
 
-const setSelected = (value: ChipListValue) => {
+const setSelected = (value: CampaignStatus) => {
   selected.value = value;
   emit("change", value);
 };
