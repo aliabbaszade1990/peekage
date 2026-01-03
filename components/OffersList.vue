@@ -1,6 +1,6 @@
 <template>
   <div
-    class="mt-4 flex flex-col gap-3 overflow-y-auto h-[585px]"
+    class="mt-4 flex flex-col gap-3 overflow-y-auto hide-scrollbar h-[590px]"
     v-bind="$attrs"
   >
     <div v-for="(offer, index) in offers" :key="offer.id">
