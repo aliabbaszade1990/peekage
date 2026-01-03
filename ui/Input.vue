@@ -6,7 +6,7 @@
     :input-class="
       `rounded-lg shadow-none focus:ring-[#1B63F5] ${inputClass}`.trim()
     "
-    icon="i-lucide-search"
+    :icon="icon"
   />
 </template>
 
@@ -15,11 +15,13 @@ type Props = {
   placeholder?: string;
   disabled?: boolean;
   inputClass?: string;
+  icon?: string;
 };
 
 const {
   placeholder = "",
   disabled = false,
   inputClass = "",
+  icon = "",
 } = defineProps<Props>();
 </script>

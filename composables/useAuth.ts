@@ -14,17 +14,12 @@ export function useAuth() {
 
   const isAuthenticated = computed(() => Boolean(token.value));
 
-  const config = useRuntimeConfig();
-  const user: PasswordGrantInput = {
-    username: config.public.authUsername,
-    password: config.public.authPassword,
-  };
-  async function login() {
+  async function loginWithCredentials(input: PasswordGrantInput) {
     const data = await graphqlRequest<
       ResultAuthenticateData,
       LoginMutationVars
     >(LOGIN_MUTATION, {
-      input: { username: user.username, password: user.password },
+      input,
     });
 
     const payload = data.authViaPassword;
@@ -46,6 +41,6 @@ export function useAuth() {
     refreshToken,
     roles,
     isAuthenticated,
-    login,
+    loginWithCredentials,
   };
 }
