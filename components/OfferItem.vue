@@ -58,25 +58,25 @@ watch(
 function statusClass(status?: CampaignStatus | null) {
   switch (status) {
     case "LIVE":
-      return "bg-green-50 text-green-700";
+      return "bg-[#DEF6F0] text-[#20C598]";
     case "VERIFIED":
       return "bg-blue-50 text-blue-700";
     case "ASSESSING":
-      return "bg-amber-50 text-amber-700";
+      return "bg-[#FEEDE0] text-[#f78834]";
     case "DRAFT":
       return "bg-gray-100 text-gray-700";
     case "PAUSE":
       return "bg-orange-50 text-orange-700";
     case "FINISHED":
-      return "bg-slate-100 text-slate-700";
+      return "bg-[#F0E1FF] text-[#9835FF]";
     case "TERMINATED":
-      return "bg-rose-50 text-rose-700";
+      return "bg-[#F0E1FF] text-[#9835FF]";
     case "REJECTED":
       return "bg-red-50 text-red-700";
     case "INVALID":
       return "bg-purple-50 text-purple-700";
     case "INPROGRESS":
-      return "bg-indigo-50 text-indigo-700";
+      return "bg-[#DEF6F0] text-[#20C598]";
     default:
       return "bg-gray-50 text-gray-600";
   }
