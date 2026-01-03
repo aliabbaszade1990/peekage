@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="flex items-center justify-between gap-3 border-b-[1px] px-2 h-24 cursor-pointer"
-  >
+  <div class="flex items-center justify-between gap-3 px-2 h-24 cursor-pointer">
     <div
       class="min-w-0 flex items-center gap-3 border-l-4 pl-1.5"
       :class="selected ? 'border-l-[#1B63F5]' : 'border-l-transparent'"

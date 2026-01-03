@@ -1,9 +1,18 @@
 <template>
   <div class="ps-52 pt-12 flex flex-col gap-6">
     <h1 class="text-2xl font-bold">Offers</h1>
-    <Card class="rounded-2xl w-[714px] min-h-[790px]">
-      <Input placeholder="Search offers by name or ID" input-class="h-12" />
-      <OffersList :offers="mockOffers" />
+    <Card class="rounded-2xl w-[714px] min-h-[790px] gap-2 flex flex-col">
+      <Input
+        placeholder="Search offers by name or ID"
+        input-class="h-12"
+        @update:model-value="onSearchChange"
+      />
+      <ChipList
+        :offers="mockOffers"
+        :statuses="['ALL', ...STATUSES]"
+        @change="onStatusChange"
+      />
+      <OffersList :offers="mockOffers" @change="onOfferChange" />
     </Card>
   </div>
 </template>
@@ -51,4 +60,16 @@ const mockOffers: Offer[] = Array.from({ length: 30 }, (_, i) => {
     },
   };
 });
+
+const onStatusChange = (status: CampaignStatus | "ALL") => {
+  console.log(status);
+};
+
+const onSearchChange = (value: string) => {
+  console.log(value);
+};
+
+const onOfferChange = (id: string) => {
+  console.log(id);
+};
 </script>
