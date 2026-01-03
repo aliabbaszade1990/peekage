@@ -10,4 +10,11 @@ export default defineNuxtConfig({
     { path: "~/components", pathPrefix: false },
     { path: "~/ui", pathPrefix: false },
   ],
+  runtimeConfig: {
+    public: {
+      graphqlEndpoint: process.env.GRAPHQL_ENDPOINT,
+      authUsername: process.env.AUTH_USERNAME,
+      authPassword: process.env.AUTH_PASSWORD,
+    },
+  },
 });
