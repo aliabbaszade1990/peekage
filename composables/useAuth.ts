@@ -1,7 +1,7 @@
 import type { ResultAuthenticateData } from "~/dtos/ResultAuthenticateData";
 import { LOGIN_MUTATION } from "~/graphql/mutations/login.mutation";
 import { graphqlRequest } from "~/services/graphql.client";
-import type { PasswordGrantInput } from "~/types/passwordGrantInput";
+import type { PasswordGrantInput } from "~/dtos/PasswordGrantInput";
 
 type LoginMutationVars = {
   input: PasswordGrantInput;
