@@ -1,21 +1,25 @@
 <template>
   <div class="ps-52 pt-8 flex flex-col gap-6">
     <h1 class="text-2xl font-bold">Offers</h1>
-    <Card class="rounded-2xl w-[714px] h-[814px] gap-2 flex flex-col">
-      <Input
-        placeholder="Search offers by name or ID"
-        input-class="h-12"
-        @update:model-value="onSearchChange"
-        icon="i-lucide-search"
-      />
-      <ChipList :offers="offers" @change="onStatusChange" />
-      <OffersList :offers="offers" @change="onOfferChange" />
-      <Pagination
-        v-model="page"
-        :total-count="totalCount"
-        :page-size="pageSize"
-      />
-    </Card>
+    <div class="flex gap-2.5">
+      <Card class="rounded-2xl w-[714px] h-[814px] gap-2 flex flex-col">
+        <Input
+          placeholder="Search offers by name or ID"
+          input-class="h-12"
+          @update:model-value="onSearchChange"
+          icon="i-lucide-search"
+        />
+        <ChipList :offers="offers" @change="onStatusChange" />
+        <OffersList :offers="offers" @change="onOfferChange" />
+        <Pagination
+          v-model="page"
+          :total-count="totalCount"
+          :page-size="pageSize"
+        />
+      </Card>
+
+      <OfferDetail v-if="selectedOfferId" :id="selectedOfferId" />
+    </div>
   </div>
 </template>
 
@@ -28,6 +32,7 @@ const selectedStatus = ref<CampaignStatus | "ALL">("ALL");
 const debouncedSearchQuery = ref<string>("");
 const page = ref<number>(1);
 const pageSize = 6;
+const selectedOfferId = ref<string | null>(null);
 
 let searchTimeout: ReturnType<typeof setTimeout> | null = null;
 
@@ -67,6 +72,6 @@ const onSearchChange = (value: string) => {
 };
 
 const onOfferChange = (id: string) => {
-  console.log(id);
+  selectedOfferId.value = id;
 };
 </script>

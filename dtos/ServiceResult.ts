@@ -3,5 +3,5 @@ export interface ServiceResult<T> {
   message?: string | null;
   result?: T;
   results?: T[];
-  totalCount: number;
+  totalCount?: number | null;
 }
