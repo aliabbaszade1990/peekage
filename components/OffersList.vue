@@ -1,5 +1,8 @@
 <template>
-  <div class="mt-4 flex flex-col gap-3 overflow-auto" v-bind="$attrs">
+  <div
+    class="mt-4 flex flex-col gap-3 overflow-y-auto h-[585px]"
+    v-bind="$attrs"
+  >
     <div v-for="(offer, index) in offers" :key="offer.id">
       <OfferItem
         :offer="offer"
@@ -16,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Offer } from "~/types/offers";
+import type { Offer } from "~/types/Offers";
 
 type Props = {
   offers: Offer[];

@@ -5,9 +5,10 @@
       :class="selected ? 'border-l-[#1B63F5]' : 'border-l-transparent'"
     >
       <img
-        :src="offer.poster?.imageKitUri || offer.poster?.uri || ''"
+        :src="posterSrc"
         :alt="offer.poster?.name || offer.name"
-        class="h-16 w-16 rounded-lg"
+        class="h-16 w-16 rounded-lg object-cover bg-gray-100"
+        @error="onPosterError"
       />
 
       <div class="truncate text-[#141414]">
@@ -23,13 +24,36 @@
 
 <script setup lang="ts">
 import type { CampaignStatus, Offer } from "~/types/Offers";
+import noImageUrl from "~/assets/no-image.svg";
 
 interface Props {
   offer: Offer;
   selected?: boolean;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
+
+const NO_IMAGE_SRC = noImageUrl;
+const posterHadError = ref(false);
+
+const posterSrc = computed(() => {
+  if (posterHadError.value) return NO_IMAGE_SRC;
+  return (
+    props.offer.poster?.imageKitUri || props.offer.poster?.uri || NO_IMAGE_SRC
+  );
+});
+
+function onPosterError() {
+  posterHadError.value = true;
+}
+
+watch(
+  () => props.offer,
+  () => {
+    posterHadError.value = false;
+  },
+  { deep: true }
+);
 
 function statusClass(status?: CampaignStatus | null) {
   switch (status) {
